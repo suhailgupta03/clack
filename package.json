@@ -1,0 +1,39 @@
+{
+  "name": "clack",
+  "version": "1.0.0",
+  "description": "Chat API utilizing web sockets",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suhailgupta03/clack.git"
+  },
+  "keywords": [
+    "chat",
+    "web",
+    "sockets",
+    "chat",
+    "api",
+    "learn",
+    "web",
+    "sockets",
+    "build",
+    "chat",
+    "application"
+  ],
+  "author": "Suhail Gupta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/suhailgupta03/clack/issues"
+  },
+  "homepage": "https://github.com/suhailgupta03/clack#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "ws": "^1.1.0"
+  },
+  "devDependencies": {
+    "yuidocjs": "^0.10.1"
+  }
+}
