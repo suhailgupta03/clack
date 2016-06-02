@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Get Clacked</title>
+    </head>
+    
+    <body>
+        <h3 class="center">Clack - The Socket Server</h3>
+        
+        <textarea class="message_box" rows="10" cols="20"></textarea>
+        
+        <p class="messages_received">
+            
+        </p>
+        
+        <script type="text/javascript">
+            var ws = new WebSocket("ws://192.168.0.222:4001");
+            
+            ws.onopen = function() {
+                document.getElementById("connection_state").innerHTML = "You are connected";
+            }
+            
+            ws.onclose = function() {
+                document.getElementById("connection_state").innerHTML = "Disconnected";
+            }
+            
+            ws.onmessage = function(payload) {
+                var child = "<p>&#9787;&nbsp;" + payload.data + "</p>";
+                document.getElementsByClassName("messages_received")[0].innerHTML += child;
+            }
+            
+            document.getElementsByClassName("message_box")[0].onkeypress = function(event) {
+                if(event.keyCode == 13) {
+                    ws.send(this.value);
+                    this.value = "";
+                }
+            }
+        </script>
+    </body>
+</html>
