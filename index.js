@@ -46,3 +46,5 @@ var webSocketPort = 4001;
 var cpipe = new CouchePipe();
 cpipe.useDatabase("sukhanvar");
 cpipe.getDocument("5f5db394cc793d969c12fe8546000817");
+//cpipe.createDatabase("brenda_lee");
+cpipe.deleteDatabase("brenda_lee");
