@@ -43,8 +43,24 @@ var webSocketPort = 4001;
 //    infoLogger.setMessage(`New message received: ${message}`).log();
 //});
 
-var cpipe = new CouchePipe();
+var cpipe = new CouchePipe("localhost",5984);
 cpipe.useDatabase("sukhanvar");
-cpipe.getDocument("5f5db394cc793d969c12fe8546000817");
+//cpipe.getDocument("5f5db394cc793d969c12fe8546000817");
 //cpipe.createDatabase("brenda_lee");
-cpipe.deleteDatabase("brenda_lee");
+//cpipe.deleteDatabase("brenda_lee");
+//cpipe.updateDocument("62fa843808a5f78dfc5a43ff67000a25",{
+//                                                            "name" : "Daag Dehlvi" , 
+//                                                            "Born" : "Delhi" , 
+//                                                            "Genre" : "Ghazal,Qasida",
+//                                                            "Died" : "Hyderabad"
+//                                                        }
+//                    );
+
+//cpipe.createDocument("punjab" , {
+//                                    "country" : "India" , "international_border" : "Pakistan" , 
+//                                    "rivers" : ["Ravi" , "Jhelum" , "Satluj" , "Chenab" , "Beas"],
+//                                    "area" : "71,818 sq m"
+//                                }
+//                    );
+
+cpipe.deleteDocument("62fa843808a5f78dfc5a43ff67000d59");
