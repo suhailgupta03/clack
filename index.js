@@ -63,4 +63,7 @@ cpipe.useDatabase("sukhanvar");
 //                                }
 //                    );
 
-cpipe.deleteDocument("62fa843808a5f78dfc5a43ff67000d59");
+//cpipe.deleteDocument("62fa843808a5f78dfc5a43ff67000d59");
+//var r = cpipe.partialUpdate("4a631a8d9daa09440b79d9b91a000820","users","data",{"username" : "just_joined"});
+//var r = cpipe.partialUpdate("4a631a8d9daa09440b79d9b91a000820","test",null,{"username" : "just_joined"});
+console.log(r);
