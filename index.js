@@ -9,6 +9,7 @@ var CHttpServer = require("./lib/CHttpServer");
 var Logger = require("./lib/Logger");
 var SocketServer = require("./lib/SocketServer");
 var CouchePipe = require("./lib/CouchePipe");
+var User = require("./lib/User");
 
 var httpPort = 4000;
 var webSocketPort = 4001;
@@ -66,4 +67,9 @@ cpipe.useDatabase("sukhanvar");
 //cpipe.deleteDocument("62fa843808a5f78dfc5a43ff67000d59");
 //var r = cpipe.partialUpdate("4a631a8d9daa09440b79d9b91a000820","users","data",{"username" : "just_joined"});
 //var r = cpipe.partialUpdate("4a631a8d9daa09440b79d9b91a000820","test",null,{"username" : "just_joined"});
-console.log(r);
+//var user = new User({"username" : "suhailgupta03@hotmail.com" , "firstname" : "suhail" , "lastname" : "gupta"});
+//user.registerUser();
+var sserver = new SocketServer(3001);
+sserver.associateCouchePipe(cpipe);
+//sserver.createBroadcastGroup({"groupName" : "Michael_Jackson"} , cpipe);
+sserver.addToBroadcastGroup("Michael_Jackson","suhail.gupta@veneratech.com");
