@@ -72,4 +72,4 @@ cpipe.useDatabase("sukhanvar");
 var sserver = new SocketServer(3001);
 sserver.associateCouchePipe(cpipe);
 //sserver.createBroadcastGroup({"groupName" : "ElvisClub"});
-sserver.addToBroadcastGroup("ElvisClub","suhailgupta03@gmail.com");
+sserver.addToBroadcastGroup("ElvisClub","suhailgupta03@llgmail.com");
