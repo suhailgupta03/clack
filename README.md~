@@ -1,0 +1,11 @@
+# clack
+#Note: In Development Phase
+Chat API utilizing web sockets
+
+This project utilizes web sockets to make a chat server. _express_ has been used as the _HTTP Server_ , _ws_ as the underlying 
+module for implementing web sockets. A document database _Couchdb_ has been used with clack. The database functionality has been loosely
+bound with clack, so another database module could be used easily.
+
+To connect to _CouchDb_, I have written a module _CouchePipe_ and a simple HTTP client. Though I would soon publish the complete 
+API, here is a few functionality to get you started!
+
