@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>Get Clacked</title>
+    </head>
+    
+    <body>
+        <h3 class="center">Clack - The Socket Server</h3>
+        <h4>Hello Ankit</h4>
+        <h5 id="connection_state"></h5>
+        <textarea class="broad_message_box" rows="10" cols="20" placeholder="Broadcast Messages"></textarea>
+        <hr>
+        <textarea class="person_message_box" rows="10" cols="20" placeholder="Send a personalized message"></textarea>
+        <input type="text" id="personalized_to" placeholder="to" />
+        <input type="text" id="personalized_from" placeholder="from" />
+        <button id="send_personalized_btn">Send Personalized</button>
+        <hr>
+        <p class="messages_received">
+            
+        </p>
+        
+        <script type="text/javascript">
+            var socketAddress = "192.168.1.221:3001";
+            var ws = new WebSocket("ws://" + socketAddress);
+            
+            ws.onopen = function() {
+                document.getElementById("connection_state").innerHTML = "You are connected";
+                // Send the username when user is connected
+                // This is required to attach the username to the server socket
+                ws.send(JSON.stringify({"username" : "ankit"}));
+            }
+            
+            ws.onclose = function() {
+                document.getElementById("connection_state").innerHTML = "Disconnected";
+            }
+            
+            ws.onmessage = function(payload) {
+                var child = "<p>&#9787;&nbsp;" + payload.data + "</p>";
+                document.getElementsByClassName("messages_received")[0].innerHTML += child;
+            }
+            
+            ws.onerror = function(message) {
+                 document.getElementById("connection_state").innerHTML = "Error occured while trying to connect " + socketAddress;
+            }
+            
+            document.getElementsByClassName("broad_message_box")[0].onkeypress = function(event) {
+                if(event.keyCode == 13) {
+                    ws.send(this.value);
+                    this.value = "";
+                }
+            }
+            
+            document.getElementById("send_personalized_btn").onclick = function(event) {
+                var message = document.getElementsByClassName('person_message_box')[0].value;
+                var from = document.getElementById('personalized_from').value;
+                var to = document.getElementById('personalized_to').value;
+                var object = {"message" : message, "from" : from, "to" : to, "action" : "oto_message"};
+                ws.send(JSON.stringify(object));
+            }
+        </script>
+    </body>
+</html>

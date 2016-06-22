@@ -15,19 +15,19 @@ var httpPort = 4000;
 var webSocketPort = 4001;
 
 var clack = new Clack(httpPort,webSocketPort);
-clack.startHTTPServer();
+//clack.startHTTPServer();
 clack.startSocketServer();
 
-//var hserver = new CHttpServer(httpPort);
-//hserver.setRoot("./public/");
-//hserver.start();
-///**
-// * Listen for HTTP Server Stopped Event
-// */
-//hserver.on("hstarted",function(message,status) {
-//    var infoLogger = new Logger(`${message} : Status ${status}`,0);
-//    infoLogger.log();
-//});
+var hserver = new CHttpServer(httpPort);
+hserver.setRoot("./public/");
+hserver.start();
+/**
+ * Listen for HTTP Server Stopped Event
+ */
+hserver.on("hstarted",function(message,status) {
+    var infoLogger = new Logger(`${message} : Status ${status}`,0);
+    infoLogger.log();
+});
 //
 //// Creating the object starts the server on this.socketPort
 //var sserver = new SocketServer(webSocketPort);

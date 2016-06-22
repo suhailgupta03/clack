@@ -6,10 +6,14 @@
  * MIT Licensed
  */
 
+/**
+ * Provides the base SocketServer class
+ * @module SocketServer
+ */
+
 var WebSocketServer = require("ws").Server
   , EventEmitter = require("events").EventEmitter
   , util = require("util")
-  , os = require("os")
   , Logger = require("./Logger")
   , CouchePipe = require("./CouchePipe")
   , User = require("./User");
@@ -17,7 +21,7 @@ var WebSocketServer = require("ws").Server
 
 /**
  * Socket Server implementation
- *
+ * @class SocketServer
  * @constructor
  * @param {Integer} port Port to bind the WebSocket Server
  * @api public
@@ -38,34 +42,13 @@ util.inherits(SocketServer,WebSocketServer);
 
 /**
  * Activate the listeners to be associated with SocketServer class
- * Emits 'newsocket', 'newmessage' events
  */
 SocketServer.prototype.activateListeners = function() {
     var that = this;
     this.socketServer.on("connection",function(socket) {
         that.emit("newsocket",socket,200);
         socket.on("message",function(message) {
-            if(!socket.userAttached) {
-                try {
-                    var object = JSON.parse(message);   
-                }catch(e) {
-                    var exception = "Invalid JSON found while trying to get the username" + os.EOL + e.stack;
-                    throw exception;
-                }
-                if(object.username)
-                    socket.userAttached = object.username; // Attach the username with the server socket
-            } 
-            try {
-                var o = JSON.parse(message);
-                if(o.action) {
-                    // Cater to the request
-                    that.mapTo(o.action,o);
-                }
-            }catch(e){
-                throw e;
-            }
-            var msgObj = {'socket' : socket, 'message' : message};
-            that.emit("newmessage",msgObj,200); 
+           that.emit("newmessage",message,200); 
         });
     });
 };
@@ -110,7 +93,7 @@ SocketServer.prototype.broadcast = function(message, groupName) {
         return new Error("Cannot broadcast an empty string");
     if(!groupName) {
         // Broadcast to all connected to the WebSocket Server
-        this.socketServer.clients.forEach(function(client) {
+        this.socketServer.forEach(function(client) {
            client.send(`~Broadcast: ${message}`); 
         });
         // Emit a beamed event, when the broadcast has been made
@@ -219,43 +202,12 @@ SocketServer.prototype.deleteFromBroadcastGroup = function(memberObject) {
 
 /**
  * Send a personal message to another user
- * Emits 'messagesent' event on success
- * @param {String} senderID   Sender of the message
- * @param {String} receiverID Receiver of the message
- * @param {String} message    Message that will be sent
- * @return {object} error
+ * @param {String} userID Receiver of the message
+ * @param {String} message Message that will be sent
  */
-SocketServer.prototype.sendMessage = function(senderID, receiverID, message) {
-    if("string" !== typeof senderID || "string" !== typeof receiverID)
-        return new Error("Invalid sender or receiver id passed");
-    var receiverFound = false;
-    this.socketServer.clients.forEach(function(socket) {
-        if(socket.userAttached && socket.userAttached == receiverID) {
-            receiverFound = true;
-            socket.send(message);
-        }
-    });
-    if(receiverFound) {
-        var o = {'sender' : senderID, 'receiver' : receiverID};
-        this.emit("messagesent",o,200);
-    }else {
-        return new Error("Incorrect receiverID or the user is offline");
-    }
+SocketServer.prototype.sendMessage = function(userID,message) {
     
 };
-
-/**
- * Map the action string to the appropriate function
- * @param {string} action Action name
- * @param {object} message object (optional)
- */
-SocketServer.prototype.mapTo = function(action,messageObject) {
-    if(SocketServer.prototype[action]) {
-        if(action == 'oto_message') {
-            this.sendMessage(messageObject.from, messageObject.to, messageObject.message);    
-        }
-    }
-}
 
 // Exports
 module.exports = SocketServer;
