@@ -5,14 +5,10 @@
     
     <body>
         <h3 class="center">Clack - The Socket Server</h3>
+        <h4>Elvis</h4>
         <h5 id="connection_state"></h5>
-        <textarea class="broad_message_box" rows="10" cols="20" placeholder="Broadcast Messages"></textarea>
-        <hr>
-        <textarea class="person_message_box" rows="10" cols="20" placeholder="Send a personalized message"></textarea>
-        <input type="text" id="personalized_to" placeholder="to" />
-        <input type="text" id="personalized_from" placeholder="from" />
-        <button id="send_personalized_btn">Send Personalized</button>
-        <hr>
+        <textarea class="message_box" rows="10" cols="20"></textarea>
+        
         <p class="messages_received">
             
         </p>
@@ -25,7 +21,7 @@
                 document.getElementById("connection_state").innerHTML = "You are connected";
                 // Send the username when user is connected
                 // This is required to attach the username to the server socket
-                ws.send(JSON.stringify({"username" : "Abba"}));
+                ws.send(JSON.stringify({"username" : "Elvis"}));
             }
             
             ws.onclose = function() {
@@ -41,19 +37,11 @@
                  document.getElementById("connection_state").innerHTML = "Error occured while trying to connect " + socketAddress;
             }
             
-            document.getElementsByClassName("broad_message_box")[0].onkeypress = function(event) {
+            document.getElementsByClassName("message_box")[0].onkeypress = function(event) {
                 if(event.keyCode == 13) {
                     ws.send(this.value);
                     this.value = "";
                 }
-            }
-            
-            document.getElementById("send_personalized_btn").onclick = function(event) {
-                var message = document.getElementsByClassName('person_message_box')[0].innerHTML;
-                var from = document.getElementById('personalized_from').value;
-                var to = document.getElementById('personalized_to').value;
-                var object = {"message" : message, "from" : from, "to" : to, "action" : "pmessage"};
-                ws.send(JSON.stringify(object));
             }
         </script>
     </body>

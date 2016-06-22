@@ -14,9 +14,9 @@ var User = require("./lib/User");
 var httpPort = 4000;
 var webSocketPort = 4001;
 
-//var clack = new Clack(httpPort,webSocketPort);
-//clack.startHTTPServer();
-//clack.startSocketServer();
+var clack = new Clack(httpPort,webSocketPort);
+clack.startHTTPServer();
+clack.startSocketServer();
 
 //var hserver = new CHttpServer(httpPort);
 //hserver.setRoot("./public/");
@@ -69,7 +69,7 @@ cpipe.useDatabase("sukhanvar");
 //var r = cpipe.partialUpdate("4a631a8d9daa09440b79d9b91a000820","test",null,{"username" : "just_joined"});
 //var user = new User({"username" : "suhailgupta03@gmail.com" , "firstname" : "suhail" , "lastname" : "gupta"});
 //user.associateCouchePipe(cpipe).registerUser();
-var sserver = new SocketServer(3001);
-sserver.associateCouchePipe(cpipe);
-//sserver.createBroadcastGroup({"groupName" : "ElvisClub"});
-sserver.addToBroadcastGroup("ElvisClub","suhailgupta03@hotmail.com");
+//var sserver = new SocketServer(3001);
+//sserver.associateCouchePipe(cpipe);
+////sserver.createBroadcastGroup({"groupName" : "ElvisClub"});
+//sserver.addToBroadcastGroup("ElvisClub","suhailgupta03@hotmail.com");
