@@ -19,14 +19,14 @@
         </p>
         
         <script type="text/javascript">
-            var socketAddress = "192.168.0.222:3001";
+            var socketAddress = "127.0.0.1:3000";
             var ws = new WebSocket("ws://" + socketAddress);
             
             ws.onopen = function() {
                 document.getElementById("connection_state").innerHTML = "You are connected";
                 // Send the username when user is connected
                 // This is required to attach the username to the server socket
-                ws.send(JSON.stringify({"username" : "suhail"}));
+                ws.send(JSON.stringify({"username" : "suhailgupta03@hotmail.com"}));
             }
             
             ws.onclose = function() {
